@@ -151,6 +151,24 @@ async def run(cmd):
     except Exception as e:
         logging.error(f"Error running command: {str(e)}")
         return False
+aasync def run(cmd):
+    try:
+        process = await asyncio.create_subprocess_shell(
+            cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        stdout, stderr = await process.communicate()
+        if process.returncode == 1:
+            return False
+        if stdout:
+            return f'[stdout]\n{stdout.decode()}'
+        if stderr:
+            return f'[stderr]\n{stderr.decode()}'
+    except Exception as e:
+        logging.error(f"Error running command: {str(e)}")
+        return False
+
 async def download_video(url, file_name):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
@@ -162,6 +180,18 @@ async def download_video(url, file_name):
                             break
                         f.write(chunk)
                 return file_name
+            else:
+                raise Exception(f"Failed to download video. Status code: {response.status}")
+
+def old_download(url, file_name, chunk_size = 1024 * 10):
+    if os.path.exists(file_name):
+        os.remove(file_name)
+    r = requests.get(url, allow_redirects=True, stream=True)
+    with open(file_name, 'wb') as fd:
+        for chunk in r.iter_content(chunk_size=chunk_size):
+            if chunk:
+                fd.write(chunk)
+    return file_name
             else:
                 raise Exception(f"Failed to download video. Status code: {response.status}")
 def old_download(url, file_name, chunk_size = 1024 * 10):
