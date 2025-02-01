@@ -4,8 +4,8 @@ tgcrypto==1.2.5
 python-dotenv==1.0.0
 pyromod==1.5
 
-# Async libraries
-aiohttp==3.7.4  # Downgraded to a more stable version
+# async-timeout==4.0.3 (remove this line or update the version constraint)
+aiohttp>=3.7.4
 aiofiles==23.2.1
 motor==3.3.1
 
