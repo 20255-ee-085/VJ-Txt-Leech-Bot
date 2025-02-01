@@ -151,7 +151,19 @@ async def run(cmd):
     except Exception as e:
         logging.error(f"Error running command: {str(e)}")
         return False
-
+async def download_video(url, file_name):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            if response.status == 200:
+                with open(file_name, 'wb') as f:
+                    while True:
+                        chunk = await response.content.read(1024)
+                        if not chunk:
+                            break
+                        f.write(chunk)
+                return file_name
+            else:
+                raise Exception(f"Failed to download video. Status code: {response.status}")
 def old_download(url, file_name, chunk_size = 1024 * 10):
     if os.path.exists(file_name):
         os.remove(file_name)
