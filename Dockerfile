@@ -6,11 +6,11 @@ RUN apt-get update && apt-get upgrade -y \
     gcc \
     libffi-dev \
     musl-dev \
+    python3-dev \
     python3-pip \
+    build-essential \
     # Install ffmpeg from official repo
     && apt-get install -y software-properties-common \
-    && add-apt-repository -y ppa:savoury1/ffmpeg4 \
-    && apt-get update \
     && apt-get install -y ffmpeg \
     # Install aria2 for downloads
     && apt-get install -y aria2 \
