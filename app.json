@@ -1,0 +1,39 @@
+{
+    "name": "VJ TXT Leech Bot",
+    "description": "A Telegram bot for downloading and uploading files from text files",
+    "keywords": [
+        "telegram",
+        "bot",
+        "python",
+        "pyrogram"
+    ],
+    "repository": "https://github.com/VJBots/VJ-TXT-LEECH-BOT",
+    "env": {
+        "BOT_TOKEN": {
+            "description": "Your bot token from @BotFather",
+            "required": true
+        },
+        "API_ID": {
+            "description": "Your API ID from my.telegram.org",
+            "required": true
+        },
+        "API_HASH": {
+            "description": "Your API HASH from my.telegram.org",
+            "required": true
+        }
+    },
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        },
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "eco"
+        }
+    }
+}
