@@ -151,24 +151,6 @@ async def run(cmd):
     except Exception as e:
         logging.error(f"Error running command: {str(e)}")
         return False
-aasync def run(cmd):
-    try:
-        process = await asyncio.create_subprocess_shell(
-            cmd,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE
-        )
-        stdout, stderr = await process.communicate()
-        if process.returncode == 1:
-            return False
-        if stdout:
-            return f'[stdout]\n{stdout.decode()}'
-        if stderr:
-            return f'[stderr]\n{stderr.decode()}'
-    except Exception as e:
-        logging.error(f"Error running command: {str(e)}")
-        return False
-
 async def download_video(url, file_name):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
