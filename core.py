@@ -249,7 +249,12 @@ async def run(cmd):
         logging.error(f"Error running command: {str(e)}")
         return False
 
-async def download_video(url, file_name):
+async def download_video(url: str, file_name: str) -> str:
+    if not isinstance(url, str) or not url.startswith("http"):
+        raise ValueError("Invalid URL")
+    if not isinstance(file_name, str) or not file_name:
+        raise ValueError("Invalid file name")
+    
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             if response.status == 200:
