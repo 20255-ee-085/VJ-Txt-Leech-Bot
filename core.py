@@ -165,6 +165,16 @@ async def download_video(url, file_name):
                 return file_name
             else:
                 raise Exception(f"Failed to download video. Status code: {response.status}")
+ async def send_vid(bot, message, caption, file_path, thumb, title, prog):
+    await bot.send_video(
+        chat_id=message.chat.id,
+        video=file_path,
+        caption=caption,
+        thumb=thumb,
+        supports_streaming=True,
+        progress=progress_bar,
+        progress_args=(prog, message)
+    )
 
 def old_download(url, file_name, chunk_size = 1024 * 10):
     if os.path.exists(file_name):
