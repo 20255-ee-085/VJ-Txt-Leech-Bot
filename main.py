@@ -112,18 +112,22 @@ async def upload(bot: Client, m: Message):
     await editable.delete()
 
     thumb = input6.text
-    if thumb.lower() in ["no", "none"]:
-     thumb = None
-    elif thumb.startswith("http://") or thumb.startswith("https://"):
-       getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
-       thumb = "thumb.jpg"
-   else:
-      thumb == "no"
+if thumb.lower() in ["no", "none"]:
+    thumb = None
+elif thumb.startswith("http://") or thumb.startswith("https://"):
+    getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
+    thumb = "thumb.jpg"
+else:
+    thumb = None
 
-    if len(links) == 1:
-        count = 1
-    else:
+if len(links) == 1:
+    count = 1
+else:
+    try:
         count = int(raw_text)
+    except ValueError:
+        await m.reply_text("Invalid input for count. Please enter a valid number.")
+        return
 
     try:
         for i in range(count - 1, len(links)):
