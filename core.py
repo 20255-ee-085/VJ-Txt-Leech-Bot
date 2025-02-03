@@ -165,7 +165,8 @@ async def download_video(url, file_name):
                 return file_name
             else:
                 raise Exception(f"Failed to download video. Status code: {response.status}")
- async def send_vid(bot, message, caption, file_path, thumb, title, prog):
+
+async def send_vid(bot, message, caption, file_path, thumb, title, prog):
     await bot.send_video(
         chat_id=message.chat.id,
         video=file_path,
